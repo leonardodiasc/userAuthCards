@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .main.container.row
+    .col-md-6.col-md-offset-3
+      h1.display-4.m-b-2 Submit a quote
+      
+      // submit a quote form 
+      form(method='POST' action='/submit')
+      
+        form(method='POST' action='/submit')
+          div.form-group
+            label(for='author') Author:
+            input#name.form-control(type='text', placeholder='author' name='author')
+          div.form-group
+            label(for='question') Question:
+            input#question.form-control(type='text', placeholder='question' name='question')
+          div.form-group
+            label(for='quote') Quote:
+            input#quote.form-control(type='text', placeholder='question' name='question')
+          button.btn.btn-primary(type='submit') Submit

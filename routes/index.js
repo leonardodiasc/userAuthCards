@@ -99,9 +99,9 @@ router.post('/register', (req,res,next)=>{
 //  return res.render('index', { title: 'Home' });
 //});
 
-// GET /about
-router.get('/about', function(req, res, next) {
-  return res.render('about', { title: 'About' });
+// GET /submit
+router.get('/submit', mid.requiresLogIn, function(req, res, next) {
+  return res.render('submit', { title: 'Submit' });
 });
 
 // GET /contact
