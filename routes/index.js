@@ -2,6 +2,7 @@ var express = require('express');
 const router = express.Router();
 var User = require('../models/user');
 var mid = require('../middleware');
+var Quote = require('../models/quote');
 
 //GET profile
 
@@ -102,6 +103,30 @@ router.post('/register', (req,res,next)=>{
 // GET /submit
 router.get('/submit', mid.requiresLogIn, function(req, res, next) {
   return res.render('submit', { title: 'Submit' });
+});
+
+//POST Submit
+
+router.post('/submit', (req,res,next)=>{
+  if (req.body.author && req.body.question && req.body.quote) {
+    var quoteInfo = {
+      author: req.body.author,
+      question: req.body.question,
+      quote: req.body.quote
+    }
+    Quote.create(quoteInfo, (error, quote) =>{
+      if (error){
+        return next(error);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }else{
+    var err = new Error('All fields must be filled, my dear.');
+    err.statuss = 400;
+    return next(err);
+  }
+
 });
 
 // GET /contact
