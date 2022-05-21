@@ -136,39 +136,16 @@ router.get('/contact', function(req, res, next) {
 
 // FlashCard information
 
-const  data  = require('../data/flashcardData.json').data;
-const  cards  = data.cards;
-
-// Flashcard routes
-
-router.get( '/', ( req, res ) => {
-  const numberOfCards = cards.length;
-  const flashcardId = Math.floor( Math.random() * numberOfCards );
-  res.redirect( `/${flashcardId}` )
-});
-
-router.get('/:id', (req, res) => {
-    const side  = req.query.side;
-    const  id  = req.params.id;
-
-    if ( !side ) {
-        return res.redirect(`/${id}?side=question`);
-    }
-    const text = cards[id][side];
-    const hint  = cards[id].hint;
-
-    const templateData = { id, text, side };
-
-    if ( side === 'question' ) {
-      templateData.hint = hint;
-      templateData.sideToShow = 'answer';
-      templateData.sideToShowDisplay = 'Answer';
-    } else if ( side === 'answer' ) {
-      templateData.sideToShow = 'question';
-      templateData.sideToShowDisplay = 'Question';
-    }
-
-    res.render('card', templateData);
+router.get('/', (req, res) => {
+  Quote.findOne()
+      .exec(function(error, quote){
+        if(error){
+          return next(error);
+        }else {
+          return res.render('index', {title: 'Home', text: quote.quote, hint:
+          quote.author});
+        }
+      });
 });
 
 

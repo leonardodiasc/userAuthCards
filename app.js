@@ -42,7 +42,6 @@ app.set('views', __dirname + '/views');
 
 // include routes
 var routes = require('./routes/index');
-const cardRoutes = require('./routes/cards');
 app.use('/', routes);
 
 // catch 404 and forward to error handler
