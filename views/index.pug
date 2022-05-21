@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .main.container.text-xs-center
+    section#content
+      p.lead= text
+      if hint
+        p
+          i #{hint}
+      a(href=`${id}?side=${sideToShow}`)= sideToShowDisplay
+      br
+      a(href='/cards')= 'Next card'
