@@ -137,15 +137,18 @@ router.get('/contact', function(req, res, next) {
 // FlashCard information
 
 router.get('/', (req, res) => {
-  Quote.findOne()
-      .exec(function(error, quote){
-        if(error){
-          return next(error);
-        }else {
-          return res.render('index', {title: 'Home', text: quote.quote, hint:
-          quote.author});
+  Quote.count().exec(function(err, count){
+    var random = Math.floor(Math.random() * count);
+    Quote.findOne().skip(random)
+        .exec(function(error, quote){
+          if(error){
+            return next(error);
+          }else {
+            return res.render('index', {title: 'Home', text: quote.quote, hint:
+            quote.author});
         }
       });
+    });
 });
 
 
