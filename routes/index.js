@@ -145,7 +145,7 @@ router.get('/', (req, res) => {
             return next(error);
           }else {
             return res.render('index', {title: 'Home', text: quote.quote, hint:
-            quote.author});
+            quote.author, question: quote.question});
         }
       });
     });
